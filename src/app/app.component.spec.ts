@@ -1,12 +1,12 @@
+import { NgOptimizedImage } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
+      imports: [NgOptimizedImage],
     }).compileComponents();
   });
 
@@ -16,16 +16,12 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ng-optimized-image-ssr'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('ng-optimized-image-ssr');
-  });
-
-  it('should render title', () => {
+  it('should display an image of the cubic houses in Rotterdam', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('ng-optimized-image-ssr app is running!');
+    const img = compiled.getElementsByTagName('img')[0];
+    expect(img.src).toContain('/assets/cubic-house-rotterdam.jpg');
+    expect(img.loading).toEqual('lazy');
   });
 });
